@@ -1,0 +1,48 @@
+<section fxLayout="column">
+  <h2>Recent Updates:</h2>
+  <form fxLayoutGap="10px" (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <mat-form-field>
+        <input
+          matInput
+          placeholder="Comment"
+          ngModel
+          name="comment"
+          required>
+      </mat-form-field>
+      <mat-form-field>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          placeholder="Date"
+          ngModel
+          name="date"
+          required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button type="submit" mat-raised-button color="accent" [disabled]="f.invalid">Submit</button>
+      </div>
+  </form>
+  <mat-list fxFlexFill>
+      <mat-divider></mat-divider>
+      <mat-list-item *ngFor="let comment of specificProjectComments; let i=index">
+        <div fxFlexFill fxLayoutAlign="start center">
+            <div fxFlex>{{comment.comment}}
+              <span fxFlex fxLayoutAlign="end">{{comment.date | date}}</span>
+              <mat-divider></mat-divider>
+            </div>
+        </div>
+      </mat-list-item>
+  </mat-list>
+</section>
+<section fxLayoutAlign="start center">
+  <div class="status-button">
+      <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Status Update:</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Complete</button>
+        <button mat-menu-item>In Progress</button>
+      </mat-menu>
+  </div>
+</section>
+

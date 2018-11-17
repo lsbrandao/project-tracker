@@ -1,0 +1,27 @@
+.my-container {
+    position: relative;
+    overflow: hidden;
+}
+.my-container h1 {
+    padding: 50px;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+    color: #262626;
+    font-size: 46px;
+} 
+.my-container img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    max-height: 100%;
+    z-index: 1;
+    opacity: 0.4;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {
+    background-color: rgba(255, 255, 255, 0.8);
+}

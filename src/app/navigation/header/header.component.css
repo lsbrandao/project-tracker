@@ -1,0 +1,17 @@
+.logo {
+    font-family: 'Lobster', cursive;
+    font-size: 150%;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover, a:active {
+    color: #F5A5D2;
+}
+
+.navigation-items {
+    list-style: none;
+}

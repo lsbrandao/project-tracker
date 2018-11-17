@@ -1,0 +1,12 @@
+.signup-form {
+    padding: 30px;
+}
+
+mat-form-field {
+    width: 300px;
+}
+
+button {
+    height: 3.5em;
+    width: 8em;
+}

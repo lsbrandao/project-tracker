@@ -1,0 +1,36 @@
+<section class="signup-form">
+  <form [formGroup]="signupForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Username</mat-label>
+      <input
+        type="text"
+        formControlName="username"
+        matInput 
+        placeholder="Username"
+        [(ngModel)]="usernameValue">
+        <button mat-button *ngIf="usernameValue" matSuffix mat-icon-button aria-label="Clear" (click)="usernameValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error>Username is required</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" color="accent">
+      <mat-label>Password</mat-label>
+      <input
+      type="password"
+        formControlName="password"
+        matInput
+        placeholder="Password"
+        [(ngModel)]="passwordValue">
+        <button mat-button *ngIf="passwordValue" matSuffix mat-icon-button aria-label="Clear" (click)="passwordValue=''">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-error>Password is required</mat-error>
+      </mat-form-field>
+    <button
+      type="submit"
+      mat-raised-button 
+      color="accent"
+      [disabled]="signupForm.invalid">Register
+    </button>
+  </form>
+</section>

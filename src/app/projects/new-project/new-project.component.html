@@ -1,0 +1,46 @@
+<h1>Add a New Project</h1>
+<section class="new-project" fxLayoutAlign="center">
+  <mat-card fxFlex.xs="100%" fxFlex="400px" fxLayout="column">
+    <form [formGroup]="newProjectForm" (ngSubmit)="onSubmit()">
+        <!-- <mat-card-title fxLayoutAlign="center"><h3>Add a new project</h3></mat-card-title> -->
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+          <mat-form-field>
+            <input formControlName="customerName" matInput placeholder="Customer Name">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="jobId" matInput placeholder="Job ID">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="paperFile" matInput placeholder="Paper file #">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="claimNumber" matInput placeholder="Claim Number">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="policyNumber" matInput placeholder="Policy Number">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="phoneNumber" matInput placeholder="Phone Numbers">
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="dateReceived" matInput [matDatepicker]="receivedPicker" placeholder="Date Received">
+            <mat-datepicker-toggle matSuffix [for]="receivedPicker"></mat-datepicker-toggle>
+            <mat-datepicker #receivedPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input formControlName="adress" matInput placeholder="Address">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select formControlName="insuranceCompany" placeholder="Insurance Company">
+              <mat-option *ngFor="let company of insuranceCompanies" value="company">
+                {{ company }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="center">
+          <button type="submit" mat-button color="accent">Create</button>
+        </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

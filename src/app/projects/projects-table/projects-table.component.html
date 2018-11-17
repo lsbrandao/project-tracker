@@ -1,0 +1,63 @@
+<h1>Projects Quick Reference Table</h1>
+<div>
+  <mat-form-field fxLayoutAlign="start start">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="customerName">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Customer Name </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.customerName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="jobId">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Job ID </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.jobId}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="paperFile">
+    <mat-header-cell fxHide.xs fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Paper File </mat-header-cell>
+    <mat-cell fxHide.xs fxLayoutAlign="center center" *matCellDef="let element"> {{element.paperFile}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="claimNumber">
+    <mat-header-cell fxHide.xs fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Claim Number </mat-header-cell>
+    <mat-cell fxHide.xs fxLayoutAlign="center center" *matCellDef="let element"> {{element.claimNumber}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="policyNumber">
+    <mat-header-cell fxHide.xs fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Policy Number </mat-header-cell>
+    <mat-cell fxHide.xs fxLayoutAlign="center center" *matCellDef="let element"> {{element.policyNumber}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="phoneNumber">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Phone Number </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.phoneNumber}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="dateReceived">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Date Received </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.dateReceived | date}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="adress">
+    <mat-header-cell fxHide.xs fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Adress </mat-header-cell>
+    <mat-cell fxHide.xs fxLayoutAlign="center center" *matCellDef="let element"> {{element.adress}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="insuranceCompany">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Insurance Company </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.insuranceCompany}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.status}} </mat-cell>
+  </ng-container>
+
+  <mat-header-row fxLayoutAlign="center center" *matHeaderRowDef="displayedColumns"> </mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+
+</mat-table>

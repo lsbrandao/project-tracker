@@ -1,0 +1,15 @@
+h1 {
+    padding-left: 30px;
+}
+
+mat-form-field {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.complete {
+    color: green;
+}
+.in-progress {
+    color: yellow;
+}
