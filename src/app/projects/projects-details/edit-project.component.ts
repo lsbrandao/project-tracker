@@ -28,13 +28,10 @@ export class EditProjectComponent implements OnInit {
         'Travelers',
         'Unica',
         'Wawanessa',
-        'The',
-        'Guarantee',
+        'The Guarantee',
         'Gore',
-        'RC',
-        'Adjuster',
-        'Claims',
-        'Pro',
+        'RC Adjuster',
+        'Claims Pro',
         'Coachman'
     ];
 
@@ -46,6 +43,6 @@ export class EditProjectComponent implements OnInit {
       }
 
       onSubmit() {
-        this.dialogRef.close(this.editedForm);
+        this.dialogRef.close(this.editedForm.value);
       }
 }

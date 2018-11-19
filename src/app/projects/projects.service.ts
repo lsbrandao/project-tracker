@@ -55,7 +55,10 @@ export class ProjectsService {
 
     editProject(project: Project, i: number) {
         const updatedProjects = this.projects.slice();
-        updatedProjects[i] = project;
+        updatedProjects[i] = {
+            ...updatedProjects[i],
+            ...project
+        };
         this.newProjects = updatedProjects.slice();
         this.projectsChanged.next(this.newProjects);
     }

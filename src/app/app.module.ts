@@ -19,7 +19,6 @@ import { ProjectsService } from './projects/projects.service';
 import { ProjectsTableComponent } from './projects/projects-table/projects-table.component';
 import { ProjectsDetailsComponent } from './projects/projects-details/projects-details.component';
 import { EditProjectComponent } from './projects/projects-details/edit-project.component';
-import { ProjectDocumentationComponent } from './projects/projects-details/project-documentation/project-documentation.component';
 import { ProjectJournalComponent } from './projects/projects-details/project-journal/project-journal.component';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { ProjectJournalComponent } from './projects/projects-details/project-jou
     ProjectsTableComponent,
     ProjectsDetailsComponent,
     EditProjectComponent,
-    ProjectDocumentationComponent,
     ProjectJournalComponent
   ],
   imports: [

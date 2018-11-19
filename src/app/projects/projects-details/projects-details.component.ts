@@ -32,7 +32,8 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.projectsService.editProject(result.value, i);
+        this.projectsService.editProject(result, i);
+        console.log(result);
       }
     });
   }
@@ -42,7 +43,7 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-    this.openJournal = true;
+    this.openJournal = !this.openJournal;
   }
 
   ngOnDestroy(): void {
