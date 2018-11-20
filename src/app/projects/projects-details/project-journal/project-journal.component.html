@@ -1,5 +1,6 @@
-<section fxLayout="column">
-  <h2>Recent Updates:</h2>
+<section fxLayoutGap="20px" fxLayout="column">
+  <h1 fxLayoutAlign="center center">Job ID: {{specificProject.jobId}} / Customer: {{specificProject.customerName}}</h1>
+  <h3>Recent Updates:</h3>
   <form fxLayoutGap="10px" (ngSubmit)="onSubmit(f)" #f="ngForm">
       <mat-form-field>
         <input
@@ -21,9 +22,15 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div>
-        <button type="submit" mat-raised-button color="accent" [disabled]="f.invalid">Submit</button>
+        <button
+         type="submit"
+         mat-raised-button color="accent"
+         [disabled]="f.invalid">Submit</button>
       </div>
   </form>
+  <div>
+    <button mat-raised-button [routerLink]="['/projects']" color="accent">Go back to active projects</button>
+  </div>
   <mat-list fxFlexFill>
       <mat-divider></mat-divider>
       <mat-list-item *ngFor="let comment of specificProjectComments; let i=index">
@@ -35,14 +42,5 @@
         </div>
       </mat-list-item>
   </mat-list>
-</section>
-<section fxLayoutAlign="start center">
-  <div class="status-button">
-      <button mat-raised-button [matMenuTriggerFor]="menu" color="primary">Status Update:</button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>Complete</button>
-        <button mat-menu-item>In Progress</button>
-      </mat-menu>
-  </div>
 </section>
 

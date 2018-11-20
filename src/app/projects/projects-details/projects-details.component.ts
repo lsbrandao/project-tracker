@@ -5,6 +5,7 @@ import { Project } from '../project.model';
 import { ProjectsService } from '../projects.service';
 import { MatDialog } from '@angular/material';
 import { EditProjectComponent } from './edit-project.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-projects-details',
@@ -17,7 +18,8 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
   openJournal = false;
 
   constructor(private projectsService: ProjectsService,
-              public dialog: MatDialog) { }
+              public dialog: MatDialog,
+              private router: Router) { }
 
   ngOnInit() {
     this.projects = this.projectsService.getProjects();
@@ -26,7 +28,7 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDialog(i) {
+  onEdit(i) {
     const dialogRef = this.dialog.open(EditProjectComponent, {
       data: this.projects[i]
     });
@@ -42,8 +44,19 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
     this.projectsService.deleteProject(index);
   }
 
-  onUpdate() {
+  onUpdate(i) {
     this.openJournal = !this.openJournal;
+    this.router.navigate(['/projects/edit', i]);
+  }
+
+  onPanelClose() {
+    this.router.navigate(['/projects']);
+    this.openJournal = false;
+  }
+
+  onStatusUpdate(project, i, status) {
+    project.status = status;
+    this.projectsService.editProject(project, i);
   }
 
   ngOnDestroy(): void {

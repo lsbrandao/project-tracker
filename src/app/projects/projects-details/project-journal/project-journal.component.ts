@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { JournalComment } from './journal-comment.model';
 import { ProjectsService } from '../../projects.service';
@@ -13,11 +14,14 @@ export class ProjectJournalComponent implements OnInit {
   comments: JournalComment[] = [];
   specificProject;
   specificProjectComments: JournalComment[] = [];
-  @Input() index: number;
+  index: number;
 
-  constructor(private projectsService: ProjectsService) { }
+  constructor(private projectsService: ProjectsService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+    this.index = +this.route.snapshot.paramMap.get('id');
     const projects = this.projectsService.getProjects();
     this.specificProject = projects[this.index];
     this.specificProjectComments = this.specificProject.journalComments;
@@ -25,6 +29,13 @@ export class ProjectJournalComponent implements OnInit {
       this.specificProjectComments = comments;
     });
   }
+    // const projects = this.projectsService.getProjects();
+    // this.specificProject = projects[this.index];
+    // this.specificProjectComments = this.specificProject.journalComments;
+    // this.projectsService.journalCommentsChanged.subscribe(comments => {
+    //   this.specificProjectComments = comments;
+    // });
+
 
   onSubmit(form: NgForm) {
     this.projectsService.addJournalComments(form.value, this.index);

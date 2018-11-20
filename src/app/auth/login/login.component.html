@@ -6,11 +6,7 @@
           type="text"
           formControlName="username"
           matInput 
-          placeholder="Username"
-          [(ngModel)]="usernameValue">
-          <button mat-button *ngIf="usernameValue" matSuffix mat-icon-button aria-label="Clear" (click)="usernameValue=''">
-            <mat-icon>close</mat-icon>
-          </button>
+          placeholder="Username">
           <mat-error>Username is required</mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline" color="accent">
@@ -19,11 +15,7 @@
           type="password"
           formControlName="password"
           matInput
-          placeholder="Password"
-          [(ngModel)]="passwordValue">
-          <button mat-button *ngIf="passwordValue" matSuffix mat-icon-button aria-label="Clear" (click)="passwordValue=''">
-            <mat-icon>close</mat-icon>
-          </button>
+          placeholder="Password">
           <mat-error>Password is required</mat-error>
         </mat-form-field>
       <button

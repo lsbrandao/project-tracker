@@ -2,7 +2,7 @@
 <mat-accordion multi="false">
   <mat-expansion-panel 
     *ngFor="let project of projects; let i=index"
-    (closed)="openJournal = false">
+    (closed)="onPanelClose()">
     <mat-expansion-panel-header>
       <mat-panel-title fxLayoutAlign="start center">
         Job ID: {{ project.jobId }}
@@ -18,15 +18,15 @@
     </mat-expansion-panel-header>
     
     <ng-template matExpansionPanelContent>
-      <section fxLayout.lt-md="column" fxLayoutGap="30px">
-        <div fxFlex.lt-md="100%" fxFlex="400px">
-          <mat-card>
+      <section fxLayoutGap="30px">
+        <div fxFlex>
+          <mat-card fxFlex fxLayout="column" fxLayoutAlign="center center">
               <mat-card-title fxLayoutAlign="center center">
                 <h2>Job details</h2>
               </mat-card-title>
               <mat-card-content fxLayoutAlign="center center">
                   <mat-list>
-                    <mat-list-item><strong>Customer Name: </strong>{{project.customerName}}</mat-list-item>
+                    <mat-list-item><strong>Customer Name:</strong>{{project.customerName}}</mat-list-item>
                     <mat-list-item><strong>Job ID: </strong>{{project.jobId}}</mat-list-item>
                     <mat-list-item><strong>Paper File: </strong>{{project.paperFile}}</mat-list-item>
                     <mat-list-item><strong>Claim Number: </strong>{{project.claimNumber}}</mat-list-item>
@@ -35,19 +35,31 @@
                     <mat-list-item><strong>Phone Number: </strong>{{project.phoneNumber}}</mat-list-item>
                     <mat-list-item><strong>Adress: </strong>{{project.adress}}</mat-list-item>
                     <mat-list-item><strong>Insurance Company: </strong>{{project.insuranceCompany}}</mat-list-item>
+                    <mat-list-item><strong>Status: </strong>{{project.status}}</mat-list-item>
                   </mat-list>
               </mat-card-content>
               <mat-card-actions fxLayoutAlign="center">
-                <button mat-raised-button color="primary" (click)="openDialog(i)">Edit</button>
-                <button mat-raised-button color="accent" (click)="onUpdate(i)"><mat-icon>assignment_turned_in</mat-icon>Update</button>
-                <button mat-raised-button color="warn" (click)="onDelete(i)">Delete</button>
+                    <button mat-raised-button [matMenuTriggerFor]="actions" color="accent">Actions</button>
+                      <mat-menu #actions="matMenu">
+                        <button mat-menu-item color="primary" (click)="onEdit(i)">Edit</button>
+                        <button mat-menu-item color="accent" (click)="onUpdate(i)">Update</button>
+                        <button mat-menu-item [matMenuTriggerFor]="menu">Change Status</button>
+                        <button mat-menu-item color="warn" (click)="onDelete(i)">Delete</button>
+                      </mat-menu>
+                      <mat-menu #menu="matMenu">
+                          <button mat-menu-item (click)="onStatusUpdate(project, i, 'Complete')">Complete</button>
+                          <button mat-menu-item (click)="onStatusUpdate(project, i, 'In Progress')">In Progress</button>
+                      </mat-menu>
               </mat-card-actions>
           </mat-card>
-        </div>
-        <div fxFlexFill.lt-md fxFlex="100%" fxLayout="column" fxLayoutAlign="start" *ngIf="openJournal">
-          <app-project-journal [index]="i"></app-project-journal>
         </div>
       </section>
     </ng-template>
 </mat-expansion-panel>
 </mat-accordion>
+
+<!-- <section fxLayoutAlign="start center">
+    <div class="status-button">
+        
+    </div>
+  </section> -->

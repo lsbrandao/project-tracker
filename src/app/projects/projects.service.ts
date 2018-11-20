@@ -63,6 +63,16 @@ export class ProjectsService {
         this.projectsChanged.next(this.newProjects);
     }
 
+    // statusUpdate(projectStatus: string, index: number) {
+    //     const updatedProjects = this.projects.slice();
+    //     updatedProjects[index] = {
+    //         ...updatedProjects[index],
+    //         status: projectStatus
+    //     };
+    //     this.newProjects = updatedProjects.slice();
+    //     this.projectsChanged.next(this.newProjects);
+    // }
+
     addJournalComments (comments: JournalComment, i: number) {
         const updatedProjects = this.projects.slice();
         const project = updatedProjects[i];
