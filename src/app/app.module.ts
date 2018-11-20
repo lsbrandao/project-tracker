@@ -17,9 +17,10 @@ import { NewProjectComponent } from './projects/new-project/new-project.componen
 import { AuthService } from './auth/auth.service';
 import { ProjectsService } from './projects/projects.service';
 import { ProjectsTableComponent } from './projects/projects-table/projects-table.component';
-import { ProjectsDetailsComponent } from './projects/projects-details/projects-details.component';
-import { EditProjectComponent } from './projects/projects-details/edit-project.component';
-import { ProjectJournalComponent } from './projects/projects-details/project-journal/project-journal.component';
+import { ProjectsDetailsComponent } from './projects/projects-list/projects-details/projects-details.component';
+import { EditProjectComponent } from './projects/projects-list/projects-details/edit-project.component';
+import { ProjectJournalComponent } from './projects/projects-list/projects-details/project-journal/project-journal.component';
+import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProjectJournalComponent } from './projects/projects-details/project-jou
     ProjectsTableComponent,
     ProjectsDetailsComponent,
     EditProjectComponent,
-    ProjectJournalComponent
+    ProjectJournalComponent,
+    ProjectsListComponent
   ],
   imports: [
     BrowserModule,

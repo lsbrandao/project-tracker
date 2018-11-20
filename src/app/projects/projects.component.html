@@ -1,26 +1,14 @@
-<!-- <mat-tab-group>
-  <mat-tab label="Current Projects"> <app-projects-details></app-projects-details></mat-tab>
-  <mat-tab label="Create a new project"><app-new-project></app-new-project></mat-tab>
-  <mat-tab label="Projects Table" [routerLink]="['/projects-table']" routerLinkActive="router-link-active" ><router-outlet></router-outlet></mat-tab>
-</mat-tab-group> -->
-
 <nav mat-tab-nav-bar>
   <a mat-tab-link
-     [routerLink]="['/projects']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
-     Current Projects
+     [routerLink]="['/projects/projects-list']">
+     Projects List
   </a>
   <a mat-tab-link
-     [routerLink]="['/projects/new-project']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
+     [routerLink]="['/projects/new-project']">
      New Project
   </a>
   <a mat-tab-link
-     [routerLink]="['/projects/projects-table']"
-     routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
+     [routerLink]="['/projects/projects-table']">
      Projects Table
   </a>
 </nav>

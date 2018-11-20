@@ -1,6 +1,6 @@
 import { Project } from './project.model';
 import { Subject } from 'rxjs';
-import { JournalComment } from './projects-details/project-journal/journal-comment.model';
+import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
 
 export class ProjectsService {
     projectsChanged = new Subject<Project[]>();
@@ -34,7 +34,7 @@ export class ProjectsService {
         dateReceived: new Date('November 13, 2018'),
         adress: '101 Erskine ave',
         insuranceCompany: 'caa',
-        status: 'In Progress',
+        status: 'Complete',
         journalComments: [{
             comment: 'Talked to customer',
             date: new Date('November 15, 2018')

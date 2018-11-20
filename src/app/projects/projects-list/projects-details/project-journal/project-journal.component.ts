@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 
 import { JournalComment } from './journal-comment.model';
-import { ProjectsService } from '../../projects.service';
+import { ProjectsService } from '../../../projects.service';
 
 @Component({
   selector: 'app-project-journal',
@@ -29,13 +29,6 @@ export class ProjectJournalComponent implements OnInit {
       this.specificProjectComments = comments;
     });
   }
-    // const projects = this.projectsService.getProjects();
-    // this.specificProject = projects[this.index];
-    // this.specificProjectComments = this.specificProject.journalComments;
-    // this.projectsService.journalCommentsChanged.subscribe(comments => {
-    //   this.specificProjectComments = comments;
-    // });
-
 
   onSubmit(form: NgForm) {
     this.projectsService.addJournalComments(form.value, this.index);

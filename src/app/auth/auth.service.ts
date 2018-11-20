@@ -17,7 +17,7 @@ export class AuthService {
             userId: Math.round(Math.random() * 10000).toString()
         };
         this.authChange.next(true);
-        this.router.navigate(['/projects']);
+        this.router.navigate(['/projects/projects-list']);
     }
 
     login(authData: AuthData) {
@@ -26,7 +26,7 @@ export class AuthService {
             userId: Math.round(Math.random() * 10000).toString()
         };
         this.authChange.next(true);
-        this.router.navigate(['/projects']);
+        this.router.navigate(['/projects/projects-list']);
     }
 
     logout() {

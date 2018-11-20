@@ -1,8 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { Project } from '../project.model';
-import { ProjectsService } from '../projects.service';
+import { Project } from '../../project.model';
+import { ProjectsService } from '../../projects.service';
 import { MatDialog } from '@angular/material';
 import { EditProjectComponent } from './edit-project.component';
 import { Router } from '@angular/router';
@@ -16,6 +16,8 @@ export class ProjectsDetailsComponent implements OnInit, OnDestroy {
   projects: Project[];
   projectsSubscription: Subscription;
   openJournal = false;
+  @Input() project;
+  @Input() i;
 
   constructor(private projectsService: ProjectsService,
               public dialog: MatDialog,

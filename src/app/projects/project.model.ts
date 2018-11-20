@@ -1,4 +1,4 @@
-import { JournalComment } from './projects-details/project-journal/journal-comment.model';
+import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
 
 export interface Project {
     customerName?: string;

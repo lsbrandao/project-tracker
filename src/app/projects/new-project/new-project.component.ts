@@ -52,7 +52,7 @@ export class NewProjectComponent implements OnInit {
       dateReceived: this.newProjectForm.value.dateReceived,
       adress: this.newProjectForm.value.adress,
       insuranceCompany: this.newProjectForm.value.insuranceCompany,
-      status: 'In progress',
+      status: 'In Progress',
       journalComments: [{
         comment: 'Received',
         date: this.newProjectForm.value.dateReceived
