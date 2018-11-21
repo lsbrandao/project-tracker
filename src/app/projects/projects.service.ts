@@ -14,7 +14,7 @@ export class ProjectsService {
         paperFile: '2018-12345',
         claimNumber: '1234567',
         policyNumber: '1239846',
-        phoneNumber: '(XXX) XXX-XXX',
+        phoneNumber: '(123) 123-1234',
         dateReceived: new Date('November 14, 2018'),
         adress: '101 Erskine ave',
         insuranceCompany: 'caa',

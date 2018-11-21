@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Project } from '../project.model';
-import { Subscription } from 'rxjs';
-import { ProjectsService } from '../projects.service';
+import { Subscription, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
-import { EditProjectComponent } from '../projects-list/projects-details/edit-project.component';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-projects-list',
@@ -12,19 +10,16 @@ import { EditProjectComponent } from '../projects-list/projects-details/edit-pro
   styleUrls: ['./projects-list.component.css']
 })
 export class ProjectsListComponent implements OnInit, OnDestroy {
-  projects: Project[];
+  projects: Observable<any>;
   projectsSubscription: Subscription;
   openJournal = false;
 
-  constructor(private projectsService: ProjectsService,
-              public dialog: MatDialog,
-              private router: Router) { }
+  constructor(public dialog: MatDialog,
+              private router: Router,
+              private db: AngularFirestore) { }
 
   ngOnInit() {
-    this.projects = this.projectsService.getProjects();
-    this.projectsSubscription = this.projectsService.projectsChanged.subscribe(projects => {
-      this.projects = projects;
-    });
+    this.projects = this.db.collection('projects').valueChanges();
   }
 
   onPanelClose() {

@@ -3,6 +3,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AppComponent } from './app.component';
 import { SignupComponent } from './auth/signup/signup.component';
@@ -21,6 +23,7 @@ import { ProjectsDetailsComponent } from './projects/projects-list/projects-deta
 import { EditProjectComponent } from './projects/projects-list/projects-details/edit-project.component';
 import { ProjectJournalComponent } from './projects/projects-list/projects-details/project-journal/project-journal.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
     AppRoutingModule,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [
     AuthService,
