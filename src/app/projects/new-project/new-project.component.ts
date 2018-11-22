@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ProjectsService } from '../projects.service';
 
 @Component({
@@ -9,8 +9,8 @@ import { ProjectsService } from '../projects.service';
 })
 export class NewProjectComponent implements OnInit {
   newProjectForm = this.formBuilder.group({
-    customerName: [''],
-    jobId: [''],
+    customerName: ['', Validators.required],
+    jobId: ['', Validators.required],
     paperFile: [''],
     claimNumber: [''],
     policyNumber: [''],

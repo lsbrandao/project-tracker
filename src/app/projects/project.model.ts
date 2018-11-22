@@ -1,6 +1,7 @@
 import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
 
 export interface Project {
+    id?: string;
     customerName?: string;
     jobId?: string;
     paperFile?: string;

@@ -2,13 +2,13 @@
 <mat-accordion>
   <ng-container>
     <h3>Active projects:</h3>
-    <mat-expansion-panel *ngFor="let project of projects | async ; let i=index" (closed)="onPanelClose()">
+    <mat-expansion-panel *ngFor="let project of projects; let i=index" (closed)="onPanelClose()">
       <mat-expansion-panel-header *ngIf="project.status == 'In Progress'">
         <mat-panel-title fxLayoutAlign="start center">Job ID: {{project.jobId}}</mat-panel-title>
         <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
         <mat-panel-description fxLayoutAlign="end center">
           <div *ngFor="let comment of project.journalComments; let last = last">
-              <div *ngIf="last">Last update: {{comment.date | date}}</div>
+              <div *ngIf="last">Last update: {{comment.date.toDate() | date}}</div>
           </div>
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -19,13 +19,13 @@
     </mat-expansion-panel>
     
     <h3>Completed projects:</h3>
-    <mat-expansion-panel *ngFor="let project of projects | async; let i=index" (closed)="onPanelClose()">
+    <mat-expansion-panel *ngFor="let project of projects; let i=index" (closed)="onPanelClose()">
         <mat-expansion-panel-header *ngIf="project.status == 'Complete'">
           <mat-panel-title fxLayoutAlign="start center">Job ID: {{ project.jobId}}</mat-panel-title>
           <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
           <mat-panel-description fxLayoutAlign="end center">
             <div *ngFor="let comment of project.journalComments; let last = last">
-                <div *ngIf="last">Last update: {{comment.date | date }}</div>
+                <div *ngIf="last">Last update: {{comment.date.toDate() | date }}</div>
             </div>
           </mat-panel-description>
         </mat-expansion-panel-header>
@@ -35,5 +35,7 @@
         </ng-template>
       </mat-expansion-panel>
   </ng-container>
-</mat-accordion> 
+</mat-accordion>
+
+
 

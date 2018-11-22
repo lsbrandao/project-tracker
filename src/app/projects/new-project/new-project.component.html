@@ -2,13 +2,15 @@
 <section class="new-project" fxLayoutAlign="center">
   <mat-card fxFlex.xs="100%" fxFlex="400px" fxLayout="column">
     <form [formGroup]="newProjectForm" (ngSubmit)="onSubmit()">
-        <!-- <mat-card-title fxLayoutAlign="center"><h3>Add a new project</h3></mat-card-title> -->
-        <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        <mat-card-title fxLayoutAlign="center"><h3>Project information</h3></mat-card-title>
+        <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
           <mat-form-field>
-            <input formControlName="customerName" matInput placeholder="Customer Name">
+            <input formControlName="customerName" matInput placeholder="Customer name">
+            <mat-hint>Customer name is required.</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input formControlName="jobId" matInput placeholder="Job ID">
+            <mat-hint>Job ID is required.</mat-hint>
           </mat-form-field>
           <mat-form-field>
             <input formControlName="paperFile" matInput placeholder="Paper file #">
@@ -39,7 +41,7 @@
           </mat-form-field>
         </mat-card-content>
         <mat-card-actions fxLayoutAlign="center">
-          <button type="submit" mat-button color="accent">Create</button>
+          <button type="submit" mat-button color="accent" [disabled]="newProjectForm.invalid">Create</button>
         </mat-card-actions>
     </form>
   </mat-card>

@@ -1,50 +1,40 @@
-import { Project } from './project.model';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { Project } from './project.model';
 import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
 
+@Injectable()
 export class ProjectsService {
+    private projects: Project[] = [];
+    private newProjects: Project[] = [];
     projectsChanged = new Subject<Project[]>();
     journalCommentsChanged = new Subject<JournalComment[]>();
-    private newProjects: Project[] = [];
-    singleProject;
 
-    private projects: Project[] = [{
-        customerName: 'Test',
-        jobId: '12345',
-        paperFile: '2018-12345',
-        claimNumber: '1234567',
-        policyNumber: '1239846',
-        phoneNumber: '(123) 123-1234',
-        dateReceived: new Date('November 14, 2018'),
-        adress: '101 Erskine ave',
-        insuranceCompany: 'caa',
-        status: 'In Progress',
-        journalComments: [{
-            comment: 'Called insurance company',
-            date: new Date('November 14, 2018')
-        }]
-    },
-    {
-        customerName: 'Test2',
-        jobId: '67890',
-        paperFile: '2018-12345',
-        claimNumber: '1234567',
-        policyNumber: '1239846',
-        phoneNumber: '(XXX) XXX-XXX',
-        dateReceived: new Date('November 13, 2018'),
-        adress: '101 Erskine ave',
-        insuranceCompany: 'caa',
-        status: 'Complete',
-        journalComments: [{
-            comment: 'Talked to customer',
-            date: new Date('November 15, 2018')
-        }]
-    }];
+    constructor(private db: AngularFirestore) {}
+
+    fetchProjects() {
+        this.db.collection('projects')
+        .snapshotChanges()
+        .pipe(
+          map(docArray => {
+            return docArray.map(doc => {
+              return {
+                id: doc.payload.doc.id,
+                ...doc.payload.doc.data() as Project
+              };
+            });
+          })
+        ).subscribe(projects => {
+            this.projects = projects;
+            this.projectsChanged.next([...this.projects]);
+        });
+    }
 
     addProject(project: Project) {
-        this.projects.push(project);
-        this.newProjects = this.projects.slice();
-        this.projectsChanged.next(this.newProjects);
+        this.addDataToDatabase(project);
     }
 
     deleteProject(index: number) {
@@ -63,16 +53,6 @@ export class ProjectsService {
         this.projectsChanged.next(this.newProjects);
     }
 
-    // statusUpdate(projectStatus: string, index: number) {
-    //     const updatedProjects = this.projects.slice();
-    //     updatedProjects[index] = {
-    //         ...updatedProjects[index],
-    //         status: projectStatus
-    //     };
-    //     this.newProjects = updatedProjects.slice();
-    //     this.projectsChanged.next(this.newProjects);
-    // }
-
     addJournalComments (comments: JournalComment, i: number) {
         const updatedProjects = this.projects.slice();
         const project = updatedProjects[i];
@@ -80,17 +60,12 @@ export class ProjectsService {
         this.journalCommentsChanged.next(project.journalComments);
     }
 
-    getProject(index: number) {
-        this.singleProject = this.projects.slice();
-        return this.singleProject[index];
-    }
-
     getProjects() {
         return this.projects.slice();
     }
 
-    getNewProjects() {
-        return this.newProjects.slice();
+    private addDataToDatabase(project: Project) {
+        this.db.collection('projects').add(project);
     }
 }
 

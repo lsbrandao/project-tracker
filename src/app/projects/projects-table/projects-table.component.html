@@ -39,7 +39,7 @@
 
   <ng-container matColumnDef="dateReceived">
     <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Date Received </mat-header-cell>
-    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.dateReceived | date}} </mat-cell>
+    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.dateReceived.toDate() | date}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="adress">
