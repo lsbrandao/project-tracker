@@ -19,7 +19,7 @@ const routes: Routes = [
         { path: 'projects-list', component: ProjectsListComponent },
         { path: 'new-project', component: NewProjectComponent },
         { path: 'projects-table', component: ProjectsTableComponent },
-        { path: 'edit/:id', component: ProjectJournalComponent },
+        { path: 'edit/:index/:id', component: ProjectJournalComponent },
     ]}
 ];
 

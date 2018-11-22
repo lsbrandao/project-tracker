@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { ProjectsDetailsComponent } from './projects-details.component';
+import { ProjectsDetailsComponent } from '../../projects-details/projects-details.component';
 
 @Component({
     selector: 'app-edit-projec',

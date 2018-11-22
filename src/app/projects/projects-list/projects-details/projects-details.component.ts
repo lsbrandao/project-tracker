@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 
 import { ProjectsService } from '../../projects.service';
 import { MatDialog } from '@angular/material';
-import { EditProjectComponent } from './edit-project.component';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ProjectsDetailsComponent implements OnInit {
   @Input() project;
-  @Input() i;
+  @Input() index;
 
   constructor(private projectsService: ProjectsService,
               public dialog: MatDialog,
@@ -21,28 +21,29 @@ export class ProjectsDetailsComponent implements OnInit {
   ngOnInit() {
   }
 
-  onEdit(i) {
+  onEdit(selectedId) {
     const dialogRef = this.dialog.open(EditProjectComponent, {
       data: this.project
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.projectsService.editProject(result, i);
-        console.log(result);
+        this.projectsService.updateProject(result, selectedId);
       }
     });
   }
 
-  onDelete(i) {
-    this.projectsService.deleteProject(i);
+  onDelete(selectedId) {
+    this.projectsService.deleteProject(selectedId);
   }
 
-  onUpdate(i) {
-    this.router.navigate(['/projects/edit', i]);
+  onCommentsUpdate(selectedId) {
+    this.router.navigate(['/projects/edit', this.index, selectedId]);
   }
 
-  onStatusUpdate(project, i, status) {
+  onStatusUpdate(project, status) {
     project.status = status;
-    this.projectsService.editProject(project, i);
+    console.log(project);
+    this.projectsService.updateProject(project, project.id);
+    this.router.navigate(['/projects/projects-list']);
   }
 }

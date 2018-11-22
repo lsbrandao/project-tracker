@@ -13,10 +13,10 @@ import { ProjectsService } from '../projects.service';
 export class ProjectsListComponent implements OnInit, OnDestroy {
   projects: Project[];
   projectsSubscription: Subscription;
-  openJournal = false;
 
   constructor(private router: Router,
-              private projectsService: ProjectsService) { }
+              private projectsService: ProjectsService) {
+               }
 
   ngOnInit() {
     this.projectsService.fetchProjects();
@@ -27,7 +27,6 @@ export class ProjectsListComponent implements OnInit, OnDestroy {
 
   onPanelClose() {
     this.router.navigate(['/projects/projects-list']);
-    this.openJournal = false;
   }
 
   ngOnDestroy() {

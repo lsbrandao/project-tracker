@@ -1,4 +1,4 @@
 export interface JournalComment {
-    comment: string;
+    comment?: string;
     date?: Date;
 }

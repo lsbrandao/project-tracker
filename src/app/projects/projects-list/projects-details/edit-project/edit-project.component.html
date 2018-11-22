@@ -31,7 +31,7 @@
             </mat-form-field>
             <mat-form-field>
               <mat-select formControlName="insuranceCompany" placeholder="Insurance Company">
-                <mat-option *ngFor="let company of insuranceCompanies" value="company">
+                <mat-option *ngFor="let company of insuranceCompanies" [value]="company">
                   {{ company }}
                 </mat-option>
               </mat-select>

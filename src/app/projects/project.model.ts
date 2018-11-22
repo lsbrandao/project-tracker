@@ -12,5 +12,5 @@ export interface Project {
     adress?: string;
     insuranceCompany?: string;
     status?: string;
-    journalComments: JournalComment[];
+    journalComments?: JournalComment[];
 }

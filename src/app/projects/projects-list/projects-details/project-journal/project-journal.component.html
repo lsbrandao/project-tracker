@@ -1,5 +1,7 @@
 <section fxLayoutGap="20px" fxLayout="column">
-  <h1 fxLayoutAlign="center center">Job ID: {{ specificProject.jobId }} / Customer name: {{ specificProject.customerName }}</h1>
+  <h1 fxLayoutAlign="center center">
+    Job ID: {{ selectedProject.jobId }}
+  </h1>
   <h3>Recent Updates:</h3>
   <form fxLayoutGap="10px" (ngSubmit)="onSubmit(f)" #f="ngForm">
       <mat-form-field>
@@ -33,10 +35,10 @@
   </div>
   <mat-list fxFlexFill>
       <mat-divider></mat-divider>
-      <mat-list-item *ngFor="let comment of specificProjectComments; let i=index">
+      <mat-list-item *ngFor="let comment of selectedProjectComments">
         <div fxFlexFill fxLayoutAlign="start center">
-            <div fxFlex>{{comment.comment}}
-              <span fxFlex fxLayoutAlign="end">{{comment.date.toDate() | date}}</span>
+            <div fxFlex>{{ comment.comment }}
+              <span fxFlex fxLayoutAlign="end">{{ comment.date.toDate() | date }}</span>
               <mat-divider></mat-divider>
             </div>
         </div>

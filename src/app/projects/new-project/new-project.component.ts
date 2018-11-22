@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProjectsService } from '../projects.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-project',
@@ -36,7 +37,8 @@ export class NewProjectComponent implements OnInit {
 ];
 
   constructor(private formBuilder: FormBuilder,
-              private projectsService: ProjectsService) { }
+              private projectsService: ProjectsService,
+              private router: Router) { }
 
   ngOnInit() {
   }
@@ -59,7 +61,7 @@ export class NewProjectComponent implements OnInit {
       }]
     });
     this.newProjectForm.reset({dateReceived: new Date});
-    console.log(this.projectsService.getProjects());
+    this.router.navigate(['/projects/projects-list']);
   }
 
 }

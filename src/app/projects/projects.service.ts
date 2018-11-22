@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 
 import { Project } from './project.model';
 import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
+import * as firebase from 'firebase/app';
 
 @Injectable()
 export class ProjectsService {
@@ -34,30 +35,37 @@ export class ProjectsService {
     }
 
     addProject(project: Project) {
-        this.addDataToDatabase(project);
+        this.db.collection('projects').add(project);
     }
 
-    deleteProject(index: number) {
-        this.projects.splice(index, 1);
-        this.newProjects = this.projects.slice();
-        this.projectsChanged.next(this.newProjects);
+    deleteProject(selectedId: string) {
+        this.db.doc('projects/' + selectedId).delete();
+        // this.projects.splice(index, 1);
+        // this.newProjects = this.projects.slice();
+        // this.projectsChanged.next(this.newProjects);
+
     }
 
-    editProject(project: Project, i: number) {
-        const updatedProjects = this.projects.slice();
-        updatedProjects[i] = {
-            ...updatedProjects[i],
-            ...project
-        };
-        this.newProjects = updatedProjects.slice();
-        this.projectsChanged.next(this.newProjects);
+    updateProject(project: Project, selectedId: string) {
+        this.db.doc('projects/' + selectedId).update(project);
+        // const updatedProjects = this.projects.slice();
+        // updatedProjects[i] = {
+        //     ...updatedProjects[i],
+        //     ...project
+        // };
+        // this.newProjects = updatedProjects.slice();
+        // this.projectsChanged.next(this.newProjects);
     }
 
-    addJournalComments (comments: JournalComment, i: number) {
-        const updatedProjects = this.projects.slice();
-        const project = updatedProjects[i];
-        project.journalComments.push(comments);
-        this.journalCommentsChanged.next(project.journalComments);
+    updateJournalComments (comments: JournalComment, selectedId: string) {
+        this.db.collection('projects').doc(selectedId).update({
+            journalComments: firebase.firestore.FieldValue.arrayUnion(comments)
+        });
+        this.fetchProjects();
+        // const updatedProjects = this.projects.slice();
+        // const project = updatedProjects[i];
+        // project.journalComments.push(comments);
+        // this.journalCommentsChanged.next(project.journalComments);
     }
 
     getProjects() {
