@@ -31,7 +31,7 @@ export class AuthService {
                 this.projecsService.unsub();
                 this.isAuthenticated = false;
                 this.authChange.next(false);
-                this.router.navigate(['/login']);
+                // this.router.navigate(['/login']);
             }
         });
     }

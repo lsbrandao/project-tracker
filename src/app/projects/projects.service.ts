@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Project } from './project.model';
 import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
 import * as firebase from 'firebase/app';
+import { UIService } from '../shared/ui.shared';
 
 @Injectable()
 export class ProjectsService {
@@ -14,9 +15,10 @@ export class ProjectsService {
     journalCommentsChanged = new Subject<JournalComment[]>();
     subs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore) {}
+    constructor(private db: AngularFirestore, private uiService: UIService) {}
 
     fetchProjects() {
+        this.uiService.loadingStateChanged.next(true);
         this.subs.push(this.db.collection('projects')
         .snapshotChanges()
         .pipe(
@@ -29,6 +31,7 @@ export class ProjectsService {
             });
           })
         ).subscribe(projects => {
+            this.uiService.loadingStateChanged.next(false);
             this.projects = projects;
             this.projectsChanged.next([...this.projects]);
         }));
