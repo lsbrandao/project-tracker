@@ -18,11 +18,12 @@
         placeholder="Password">
         <mat-error>Password should be at least 6 characters.</mat-error>
       </mat-form-field>
-    <button
+    <button *ngIf="!isLoading"
       type="submit"
       mat-raised-button 
       color="accent"
       [disabled]="signupForm.invalid">Register
     </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>

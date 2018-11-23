@@ -25,6 +25,7 @@ import { EditProjectComponent } from './projects/projects-list/projects-details/
 import { ProjectJournalComponent } from './projects/projects-list/projects-details/project-journal/project-journal.component';
 import { ProjectsListComponent } from './projects/projects-list/projects-list.component';
 import { environment } from '../environments/environment';
+import { UIService } from './shared/ui.shared';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { environment } from '../environments/environment';
   ],
   providers: [
     AuthService,
-    ProjectsService
+    ProjectsService,
+    UIService
   ],
   bootstrap: [AppComponent],
   entryComponents: [EditProjectComponent]

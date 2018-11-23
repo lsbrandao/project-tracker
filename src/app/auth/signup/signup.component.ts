@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { UIService } from '../../shared/ui.shared';
 
 @Component({
   selector: 'app-signup',
@@ -8,15 +9,23 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  signupForm = this.formBuilder.group({
-    email: ['', Validators.required],
-    password: ['', Validators.required]
-  });
+  signupForm: FormGroup;
+  isLoading = false;
 
-  constructor(private formBuilder: FormBuilder,
-              private authService: AuthService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private uiService: UIService
+    ) { }
 
   ngOnInit() {
+    this.uiService.loadingStateChanged.subscribe(isLoadingState => {
+      this.isLoading = isLoadingState;
+    });
+    this.signupForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   onSubmit() {
