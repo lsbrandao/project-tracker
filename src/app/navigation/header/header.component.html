@@ -10,7 +10,7 @@
     </div>
   <div fxFlex fxLayout="row" fxLayoutAlign="end" fxHide.xs>
       <ul fxLayout="row" fxLayoutGap="20px" class="navigation-items">
-          <li *ngIf="isAuth"><a [routerLink]="[ '/projects' ]">Projects</a></li>
+          <li *ngIf="isAuth"><a [routerLink]="[ '/projects/projects-list' ]">Projects</a></li>
           <li *ngIf="!isAuth"><a [routerLink]="[ '/signup' ]">Register</a></li>
           <li *ngIf="!isAuth"><a [routerLink]="[ '/login' ]">Log-in</a></li>
           <li *ngIf="isAuth"><a (click)="onLogout()">Log-out</a></li>

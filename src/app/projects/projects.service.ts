@@ -12,12 +12,12 @@ export class ProjectsService {
     private projects: Project[] = [];
     projectsChanged = new Subject<Project[]>();
     journalCommentsChanged = new Subject<JournalComment[]>();
-    subs: Subscription;
+    subs: Subscription[] = [];
 
     constructor(private db: AngularFirestore) {}
 
     fetchProjects() {
-        this.subs = this.db.collection('projects')
+        this.subs.push(this.db.collection('projects')
         .snapshotChanges()
         .pipe(
           map(docArray => {
@@ -31,6 +31,12 @@ export class ProjectsService {
         ).subscribe(projects => {
             this.projects = projects;
             this.projectsChanged.next([...this.projects]);
+        }));
+    }
+
+    unsub() {
+        this.subs.forEach(sub => {
+            sub.unsubscribe();
         });
     }
 

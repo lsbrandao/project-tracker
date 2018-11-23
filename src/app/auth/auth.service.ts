@@ -11,15 +11,32 @@ export class AuthService {
     authChange = new Subject<boolean>();
     private isAuthenticated = false;
 
-    constructor(private router: Router,
-                private afAuth: AngularFireAuth,
-                private projecsService: ProjectsService) {}
+    constructor(
+        private router: Router,
+        private afAuth: AngularFireAuth,
+        private projecsService: ProjectsService
+        ) {}
+
+    initAuthListener() {
+        this.afAuth.authState.subscribe(user => {
+            if (user) {
+                this.isAuthenticated = true;
+                this.authChange.next(true);
+                this.router.navigate(['/projects/projects-list']);
+            } else {
+                this.projecsService.unsub();
+                this.isAuthenticated = false;
+                this.authChange.next(false);
+                this.router.navigate(['/login']);
+            }
+        });
+    }
 
     signup(authData: AuthData) {
         this.afAuth.auth.createUserWithEmailAndPassword(
             authData.email, authData.password
         ).then(result => {
-            this.authSuccessfully();
+            console.log(result);
         }).catch(error => {
             console.log(error);
         });
@@ -29,27 +46,18 @@ export class AuthService {
         this.afAuth.auth.signInWithEmailAndPassword(
             authData.email, authData.password
         ).then(result => {
-            this.authSuccessfully();
+            console.log(result);
         }).catch(error => {
             console.log(error);
         });
     }
 
     logout() {
-        this.projecsService.subs.unsubscribe();
         this.afAuth.auth.signOut();
-        this.authChange.next(false);
-        this.router.navigate(['/login']);
-        this.isAuthenticated = false;
     }
 
     isAuth() {
         return this.isAuthenticated;
     }
 
-    authSuccessfully() {
-        this.isAuthenticated = true;
-        this.authChange.next(true);
-        this.router.navigate(['/projects/projects-list']);
-    }
 }
