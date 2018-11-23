@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UIService } from '../../shared/ui.shared';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   isLoading = false;
+  isLoadingSub: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,7 +21,7 @@ export class SignupComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.uiService.loadingStateChanged.subscribe(isLoadingState => {
+    this.isLoadingSub = this.uiService.loadingStateChanged.subscribe(isLoadingState => {
       this.isLoading = isLoadingState;
     });
     this.signupForm = this.formBuilder.group({
@@ -30,6 +32,10 @@ export class SignupComponent implements OnInit {
 
   onSubmit() {
     this.authService.signup(this.signupForm.value);
+  }
+
+  ngOnDestroy() {
+    this.isLoadingSub.unsubscribe();
   }
 
 }
