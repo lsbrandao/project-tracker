@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Project } from './project.model';
@@ -10,14 +10,14 @@ import * as firebase from 'firebase/app';
 @Injectable()
 export class ProjectsService {
     private projects: Project[] = [];
-    private newProjects: Project[] = [];
     projectsChanged = new Subject<Project[]>();
     journalCommentsChanged = new Subject<JournalComment[]>();
+    subs: Subscription;
 
     constructor(private db: AngularFirestore) {}
 
     fetchProjects() {
-        this.db.collection('projects')
+        this.subs = this.db.collection('projects')
         .snapshotChanges()
         .pipe(
           map(docArray => {
@@ -70,10 +70,6 @@ export class ProjectsService {
 
     getProjects() {
         return this.projects.slice();
-    }
-
-    private addDataToDatabase(project: Project) {
-        this.db.collection('projects').add(project);
     }
 }
 

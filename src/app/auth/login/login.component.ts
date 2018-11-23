@@ -9,11 +9,9 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm = this.formBuilder.group({
-    username: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(4)]]
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
   });
-  usernameValue;
-  passwordValue;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) { }
@@ -22,11 +20,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login({
-      email: this.loginForm.value.username,
-      password: this.loginForm.value.password
-    });
-    console.log(this.authService.getUser());
+    this.authService.login(this.loginForm.value);
   }
 
 }

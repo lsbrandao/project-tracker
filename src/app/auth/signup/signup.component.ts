@@ -9,11 +9,9 @@ import { AuthService } from '../auth.service';
 })
 export class SignupComponent implements OnInit {
   signupForm = this.formBuilder.group({
-    username: ['', Validators.required],
+    email: ['', Validators.required],
     password: ['', Validators.required]
   });
-  usernameValue;
-  passwordValue;
 
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService) { }
@@ -22,7 +20,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.signup(this.signupForm.value.username);
+    this.authService.signup(this.signupForm.value);
   }
 
 }
