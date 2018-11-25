@@ -3,9 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { ProjectsService } from '../../../projects.service';
-import { Subscription, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Project } from '../../../project.model';
+import { Subscription } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { JournalComment } from './journal-comment.model';
 

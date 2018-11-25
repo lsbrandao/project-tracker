@@ -1,11 +1,9 @@
 import { AuthData } from './auth-data.model';
-import { User } from './user.model';
 import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ProjectsService } from '../projects/projects.service';
-import { MatSnackBar } from '@angular/material';
 import { UIService } from '../shared/ui.shared';
 
 @Injectable()
@@ -17,7 +15,6 @@ export class AuthService {
         private router: Router,
         private afAuth: AngularFireAuth,
         private projecsService: ProjectsService,
-        private snackBar: MatSnackBar,
         private uiService: UIService
         ) {}
 
@@ -31,7 +28,7 @@ export class AuthService {
                 this.projecsService.unsub();
                 this.isAuthenticated = false;
                 this.authChange.next(false);
-                // this.router.navigate(['/login']);
+                this.router.navigate(['/login']);
             }
         });
     }
@@ -44,9 +41,7 @@ export class AuthService {
             this.uiService.loadingStateChanged.next(false);
         }).catch(error => {
             this.uiService.loadingStateChanged.next(false);
-            this.snackBar.open(error.message, null, {
-                duration: 5000
-            });
+            this.uiService.openSnackBar(error.message, null, 5000);
         });
     }
 
@@ -58,9 +53,7 @@ export class AuthService {
             this.uiService.loadingStateChanged.next(false);
         }).catch(error => {
             this.uiService.loadingStateChanged.next(false);
-            this.snackBar.open(error.message, null, {
-                duration: 5000
-            });
+            this.uiService.openSnackBar(error.message, null, 5000);
         });
     }
 

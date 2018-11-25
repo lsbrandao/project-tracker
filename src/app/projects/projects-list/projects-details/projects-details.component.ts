@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { ProjectsService } from '../../projects.service';
 import { MatDialog } from '@angular/material';
@@ -42,7 +42,6 @@ export class ProjectsDetailsComponent implements OnInit {
 
   onStatusUpdate(project, status) {
     project.status = status;
-    console.log(project);
     this.projectsService.updateProject(project, project.id);
     this.router.navigate(['/projects/projects-list']);
   }

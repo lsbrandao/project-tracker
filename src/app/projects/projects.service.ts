@@ -34,6 +34,9 @@ export class ProjectsService {
             this.uiService.loadingStateChanged.next(false);
             this.projects = projects;
             this.projectsChanged.next([...this.projects]);
+        }, error => {
+            this.uiService.loadingStateChanged.next(false);
+            this.uiService.openSnackBar('Fetching projects failed, please try again later', null, 3000);
         }));
     }
 
