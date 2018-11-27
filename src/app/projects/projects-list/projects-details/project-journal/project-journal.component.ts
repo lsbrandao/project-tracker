@@ -1,47 +1,40 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 import { ProjectsService } from '../../../projects.service';
-import { Subscription } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { JournalComment } from './journal-comment.model';
+import { Project } from '../../../project.model';
+import * as fromProjects from '../../../projects.reducer';
+import * as Projects from '../../../projects.actions';
 
 @Component({
   selector: 'app-project-journal',
   templateUrl: './project-journal.component.html',
   styleUrls: ['./project-journal.component.css']
 })
-export class ProjectJournalComponent implements OnInit, OnDestroy {
-  index: number;
+export class ProjectJournalComponent implements OnInit {
   selectedId: string;
-  selectedProject;
-  selectedProjectComments: JournalComment[];
-  selectedProjectsSubs: Subscription;
+  selectedProject$: Observable<Project>;
+  selectedProjectComments$: Observable<JournalComment[]>;
 
   constructor(private projectsService: ProjectsService,
               private route: ActivatedRoute,
-              private db: AngularFirestore) {
-                this.selectedProject = this.db.doc('projects/' + this.selectedId).valueChanges();
+              private store: Store<fromProjects.State>) {
               }
 
   ngOnInit() {
-    this.index = +this.route.snapshot.paramMap.get('index');
     this.selectedId = this.route.snapshot.paramMap.get('id');
-    this.selectedProjectsSubs = this.projectsService.projectsChanged.subscribe(projects => {
-      this.selectedProject = projects[this.index];
-      this.selectedProjectComments = this.selectedProject.journalComments;
-    });
     this.projectsService.fetchProjects();
+    this.store.dispatch(new Projects.SelectProject(this.selectedId));
+    this.selectedProject$ = this.store.select(fromProjects.getSelectedProject);
+    this.selectedProjectComments$ = this.store.select(fromProjects.getSelectedProjectComments);
   }
 
   onSubmit(form: NgForm) {
-    this.projectsService.updateJournalComments(form.value, this.selectedProject.id);
+    this.projectsService.updateJournalComments(form.value, this.selectedId);
     form.reset();
   }
-
-  ngOnDestroy() {
-    this.selectedProjectsSubs.unsubscribe();
-  }
-
 }

@@ -1,6 +1,6 @@
 <section fxLayoutGap="20px" fxLayout="column">
   <h1 fxLayoutAlign="center center">
-    Job ID: {{ selectedProject.jobId }}
+    Job ID: {{ (selectedProject$ | async).jobId }}
   </h1>
   <h3>Recent Updates:</h3>
   <form fxLayoutGap="10px" (ngSubmit)="onSubmit(f)" #f="ngForm">
@@ -35,7 +35,7 @@
   </div>
   <mat-list fxFlexFill>
       <mat-divider></mat-divider>
-      <mat-list-item *ngFor="let comment of selectedProjectComments">
+      <mat-list-item *ngFor="let comment of (selectedProjectComments$ | async)">
         <div fxFlexFill fxLayoutAlign="start center">
             <div fxFlex>{{ comment.comment }}
               <span fxFlex fxLayoutAlign="end">{{ comment.date.toDate() | date }}</span>

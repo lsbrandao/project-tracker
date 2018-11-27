@@ -48,8 +48,8 @@
   </ng-container>
 
   <ng-container matColumnDef="insuranceCompany">
-    <mat-header-cell fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Insurance Company </mat-header-cell>
-    <mat-cell fxLayoutAlign="center center" *matCellDef="let element"> {{element.insuranceCompany}} </mat-cell>
+    <mat-header-cell fxHide.xs fxLayoutAlign="center center" *matHeaderCellDef mat-sort-header> Insurance Company </mat-header-cell>
+    <mat-cell fxHide.xs fxLayoutAlign="center center" *matCellDef="let element"> {{element.insuranceCompany}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="status">

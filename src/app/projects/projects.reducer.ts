@@ -28,7 +28,7 @@ export function projectsReducer (state = initialState, action: ProjectActions) {
         case SELECT_PROJECT:
         return {
             ...state,
-            selectedProject: { ...state.projects.find(ex => ex.id === action.payload)}
+            selectedProject: { ...state.projects.find(proj => proj.id === action.payload)}
         };
       default:
         return state;
@@ -40,3 +40,4 @@ export const getProjectsState = createFeatureSelector<ProjectsState>('projects')
 
 export const getProjects = createSelector(getProjectsState, (state: ProjectsState) => state.projects);
 export const getSelectedProject = createSelector(getProjectsState, (state: ProjectsState) => state.selectedProject);
+export const getSelectedProjectComments = createSelector(getProjectsState, (state: ProjectsState) => state.selectedProject.journalComments);

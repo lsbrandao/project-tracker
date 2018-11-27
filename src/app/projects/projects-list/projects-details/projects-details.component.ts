@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 })
 export class ProjectsDetailsComponent implements OnInit {
   @Input() project;
-  @Input() index;
 
   constructor(private projectsService: ProjectsService,
               public dialog: MatDialog,
@@ -37,7 +36,7 @@ export class ProjectsDetailsComponent implements OnInit {
   }
 
   onCommentsUpdate(selectedId) {
-    this.router.navigate(['/projects/edit', this.index, selectedId]);
+    this.router.navigate(['/projects/edit', selectedId]);
   }
 
   onStatusUpdate(project, status) {

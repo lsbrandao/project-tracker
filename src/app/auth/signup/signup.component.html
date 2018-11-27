@@ -1,29 +1,36 @@
-<section class="signup-form">
-  <form [formGroup]="signupForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" color="accent">
-      <mat-label>Email</mat-label>
-      <input
-        type="email"
-        formControlName="email"
-        matInput 
-        placeholder="Email">
-        <mat-error>Email is required</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" color="accent">
-      <mat-label>Password</mat-label>
-      <input
-      type="password"
-        formControlName="password"
-        matInput
-        placeholder="Password">
-        <mat-error>Password should be at least 6 characters.</mat-error>
+<div
+  class="my-container"
+  fxLayoutAlign="center center"
+  fxFlexFill>
+  <section class="signup-form">
+    <h1>Sign Up</h1>
+    <form [formGroup]="signupForm" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          formControlName="email"
+          matInput 
+          placeholder="Email">
+          <mat-error>Email is required</mat-error>
       </mat-form-field>
-    <button *ngIf="!(isLoading$ | async)"
-      type="submit"
-      mat-raised-button 
-      color="accent"
-      [disabled]="signupForm.invalid">Register
-    </button>
-    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
-  </form>
-</section>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>Password</mat-label>
+        <input
+        type="password"
+          formControlName="password"
+          matInput
+          placeholder="Password">
+          <mat-error>Password should be at least 6 characters.</mat-error>
+        </mat-form-field>
+      <button *ngIf="!(isLoading$ | async)"
+        type="submit"
+        mat-raised-button 
+        color="accent"
+        [disabled]="signupForm.invalid">Register
+      </button>
+      <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
+    </form>
+  </section>
+    <img src="{{ '../assets/img/bg.jpg' }}">
+</div>

@@ -13,8 +13,9 @@ export class SetProjects implements Action {
 export class SelectProject implements Action {
     readonly type = SELECT_PROJECT;
 
-    constructor(public payload: Project) {}
+    constructor(public payload: string) {}
 }
 
 
 export type ProjectActions = SetProjects | SelectProject;
+
