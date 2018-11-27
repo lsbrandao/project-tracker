@@ -27,7 +27,7 @@ export class ProjectsDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result != null) {
-        this.projectsService.updateProject(result, selectedId);
+        this.projectsService.editProject(result, selectedId);
       }
     });
   }
@@ -42,7 +42,7 @@ export class ProjectsDetailsComponent implements OnInit {
 
   onStatusUpdate(project, status) {
     project.status = status;
-    this.projectsService.updateProject(project, project.id);
+    this.projectsService.editProject(project, project.id);
     this.router.navigate(['/projects/projects-list']);
   }
 }

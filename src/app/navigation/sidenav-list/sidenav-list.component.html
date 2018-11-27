@@ -3,19 +3,19 @@
       <mat-icon>home</mat-icon>
       <span class="list-icons">Home</span>
   </a>
-  <a *ngIf="isAuth" mat-list-item [routerLink]="['/projects/projects-list']" (click)="onSidenavClose()">
+  <a *ngIf="isAuth$ | async" mat-list-item [routerLink]="['/projects/projects-list']" (click)="onSidenavClose()">
       <mat-icon>assignment</mat-icon>
       <span class="list-icons">Projects</span>
   </a>
-  <a *ngIf="!isAuth" mat-list-item [routerLink]="['/signup']" (click)="onSidenavClose()">
+  <a *ngIf="!(isAuth$ | async)" mat-list-item [routerLink]="['/signup']" (click)="onSidenavClose()">
       <mat-icon>face</mat-icon>
       <span class="list-icons">Register</span>
   </a> 
-  <a *ngIf="!isAuth" mat-list-item [routerLink]="['/login']" (click)="onSidenavClose()">
+  <a *ngIf="!(isAuth$ | async)" mat-list-item [routerLink]="['/login']" (click)="onSidenavClose()">
       <mat-icon>how_to_reg</mat-icon>
       <span class="list-icons">Log-in</span>
   </a> 
-  <mat-list-item  *ngIf="isAuth">
+  <mat-list-item  *ngIf="isAuth$ | async">
       <button mat-icon-button (click)="onLogout()">
           <mat-icon>label_off</mat-icon>
           <span class="list-icons">Log-out</span>

@@ -1,9 +1,9 @@
 <h1>Projects list</h1>
 <mat-accordion>
   <ng-container>
-    <section *ngIf="!isLoading">
+    <section *ngIf="!(isLoading$ | async)">
         <h3>Active projects:</h3>
-        <mat-expansion-panel *ngFor="let project of projects; let i=index" (closed)="onPanelClose()">
+        <mat-expansion-panel *ngFor="let project of projects$ | async; let i=index" (closed)="onPanelClose()">
           <mat-expansion-panel-header *ngIf="project.status == 'In Progress'">
             <mat-panel-title fxLayoutAlign="start center">Job ID: {{project.jobId}}</mat-panel-title>
             <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
@@ -20,9 +20,9 @@
         </mat-expansion-panel>
     </section>
 
-    <section *ngIf="!isLoading">
+    <section *ngIf="!(isLoading$ | async)">
         <h3>Completed projects:</h3>
-        <mat-expansion-panel *ngFor="let project of projects; let i=index" (closed)="onPanelClose()">
+        <mat-expansion-panel *ngFor="let project of projects$ | async; let i=index" (closed)="onPanelClose()">
             <mat-expansion-panel-header *ngIf="project.status == 'Complete'">
               <mat-panel-title fxLayoutAlign="start center">Job ID: {{ project.jobId}}</mat-panel-title>
               <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
@@ -40,7 +40,7 @@
     </section>
   </ng-container>
 </mat-accordion>
-<div *ngIf="isLoading" fxLayoutAlign="center center">
+<div *ngIf="isLoading$ | async" fxLayoutAlign="center center">
   <mat-spinner></mat-spinner>
 </div>
 

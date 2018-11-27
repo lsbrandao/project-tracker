@@ -1,29 +1,28 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Observable } from 'rxjs';
+
 import { AuthService } from '../auth.service';
-import { UIService } from '../../shared/ui.shared';
-import { Subscription } from 'rxjs';
+import * as fromRoot from '../../app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit, OnDestroy {
+export class SignupComponent implements OnInit {
   signupForm: FormGroup;
-  isLoading = false;
-  isLoadingSub: Subscription;
+  isLoading$: Observable<boolean>;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private uiService: UIService
+    private store: Store<fromRoot.State>
     ) { }
 
   ngOnInit() {
-    this.isLoadingSub = this.uiService.loadingStateChanged.subscribe(isLoadingState => {
-      this.isLoading = isLoadingState;
-    });
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.signupForm = this.formBuilder.group({
       email: ['', Validators.required],
       password: ['', Validators.required]
@@ -33,9 +32,4 @@ export class SignupComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.authService.signup(this.signupForm.value);
   }
-
-  ngOnDestroy() {
-    this.isLoadingSub.unsubscribe();
-  }
-
 }

@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
 import { Subject, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Project } from './project.model';
 import { JournalComment } from './projects-list/projects-details/project-journal/journal-comment.model';
-import * as firebase from 'firebase/app';
 import { UIService } from '../shared/ui.shared';
+import * as firebase from 'firebase/app';
+import * as fromProject from './projects.reducer';
+import * as UI from '../shared/ui.actions';
+import * as Projects from './projects.actions';
 
 @Injectable()
 export class ProjectsService {
@@ -15,10 +19,14 @@ export class ProjectsService {
     journalCommentsChanged = new Subject<JournalComment[]>();
     subs: Subscription[] = [];
 
-    constructor(private db: AngularFirestore, private uiService: UIService) {}
+    constructor(
+        private db: AngularFirestore,
+        private uiService: UIService,
+        private store: Store<fromProject.State>
+        ) {}
 
     fetchProjects() {
-        this.uiService.loadingStateChanged.next(true);
+        this.store.dispatch( new UI.StartLoading );
         this.subs.push(this.db.collection('projects')
         .snapshotChanges()
         .pipe(
@@ -31,11 +39,10 @@ export class ProjectsService {
             });
           })
         ).subscribe(projects => {
-            this.uiService.loadingStateChanged.next(false);
-            this.projects = projects;
-            this.projectsChanged.next([...this.projects]);
+            this.store.dispatch(new UI.StopLoading());
+            this.store.dispatch(new Projects.SetProjects(projects));
         }, error => {
-            this.uiService.loadingStateChanged.next(false);
+            this.store.dispatch( new UI.StopLoading );
             this.uiService.openSnackBar('Fetching projects failed, please try again later', null, 3000);
         }));
     }
@@ -52,21 +59,10 @@ export class ProjectsService {
 
     deleteProject(selectedId: string) {
         this.db.doc('projects/' + selectedId).delete();
-        // this.projects.splice(index, 1);
-        // this.newProjects = this.projects.slice();
-        // this.projectsChanged.next(this.newProjects);
-
     }
 
-    updateProject(project: Project, selectedId: string) {
+    editProject(project: Project, selectedId: string) {
         this.db.doc('projects/' + selectedId).update(project);
-        // const updatedProjects = this.projects.slice();
-        // updatedProjects[i] = {
-        //     ...updatedProjects[i],
-        //     ...project
-        // };
-        // this.newProjects = updatedProjects.slice();
-        // this.projectsChanged.next(this.newProjects);
     }
 
     updateJournalComments (comments: JournalComment, selectedId: string) {
@@ -74,14 +70,11 @@ export class ProjectsService {
             journalComments: firebase.firestore.FieldValue.arrayUnion(comments)
         });
         this.fetchProjects();
-        // const updatedProjects = this.projects.slice();
-        // const project = updatedProjects[i];
-        // project.journalComments.push(comments);
-        // this.journalCommentsChanged.next(project.journalComments);
     }
 
     getProjects() {
-        return this.projects.slice();
+        this.store.select(fromProject.getProjects);
+        // return this.projects.slice();
     }
 }
 
