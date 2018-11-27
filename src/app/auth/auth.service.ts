@@ -31,6 +31,7 @@ export class AuthService {
             } else {
                 this.projecsService.unsub();
                 this.store.dispatch( new Auth.SetUnauthenticated);
+                this.router.navigate(['']);
             }
         });
     }
