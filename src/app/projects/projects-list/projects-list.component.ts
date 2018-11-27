@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 
@@ -24,12 +24,9 @@ export class ProjectsListComponent implements OnInit {
     ) {}
 
   ngOnInit() {
+    this.projectsService.fetchProjects();
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
     this.projects$ = this.store.select(fromProjects.getProjects);
-    this.projectsService.fetchProjects();
-    // this.projectsSubscription = this.projectsService.projectsChanged.subscribe(projects => {
-    //   this.projects = projects;
-    // });
   }
 
   onPanelClose() {

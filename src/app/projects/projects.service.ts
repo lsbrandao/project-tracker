@@ -14,7 +14,6 @@ import * as Projects from './projects.actions';
 
 @Injectable()
 export class ProjectsService {
-    private projects: Project[] = [];
     projectsChanged = new Subject<Project[]>();
     journalCommentsChanged = new Subject<JournalComment[]>();
     subs: Subscription[] = [];
@@ -26,7 +25,7 @@ export class ProjectsService {
         ) {}
 
     fetchProjects() {
-        this.store.dispatch( new UI.StartLoading );
+        this.store.dispatch(new UI.StartLoading());
         this.subs.push(this.db.collection('projects')
         .snapshotChanges()
         .pipe(
@@ -42,7 +41,7 @@ export class ProjectsService {
             this.store.dispatch(new UI.StopLoading());
             this.store.dispatch(new Projects.SetProjects(projects));
         }, error => {
-            this.store.dispatch( new UI.StopLoading );
+            this.store.dispatch(new UI.StopLoading());
             this.uiService.openSnackBar('Fetching projects failed, please try again later', null, 3000);
         }));
     }

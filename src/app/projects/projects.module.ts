@@ -10,6 +10,8 @@ import { ProjectJournalComponent } from './projects-list/projects-details/projec
 import { ProjectsListComponent } from './projects-list/projects-list.component';
 import { SharedModule } from '../shared/shared.module';
 import { ProjectsRoutingModule } from './projects-routing.module';
+import { StoreModule } from '@ngrx/store';
+import { projectsReducer } from './projects.reducer';
 
 @NgModule({
     declarations: [
@@ -24,7 +26,9 @@ import { ProjectsRoutingModule } from './projects-routing.module';
     imports: [
         SharedModule,
         FormsModule,
-        ProjectsRoutingModule
+        ProjectsRoutingModule,
+        StoreModule.forFeature('projects', projectsReducer)
+
     ],
     entryComponents: [EditProjectComponent]
 })

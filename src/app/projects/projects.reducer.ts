@@ -1,8 +1,8 @@
 import { ProjectActions, SET_PROJECTS, SELECT_PROJECT } from './projects.actions';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { Project } from './project.model';
 import * as fromRoot from '../app.reducer';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export interface ProjectsState {
     projects: Project[];
@@ -28,7 +28,7 @@ export function projectsReducer (state = initialState, action: ProjectActions) {
         case SELECT_PROJECT:
         return {
             ...state,
-            activeTraining: { ...state.projects.find(ex => ex.id === action.payload)}
+            selectedProject: { ...state.projects.find(ex => ex.id === action.payload)}
         };
       default:
         return state;

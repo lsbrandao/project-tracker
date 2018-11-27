@@ -3,7 +3,7 @@
   <ng-container>
     <section *ngIf="!(isLoading$ | async)">
         <h3>Active projects:</h3>
-        <mat-expansion-panel *ngFor="let project of projects$ | async; let i=index" (closed)="onPanelClose()">
+        <mat-expansion-panel *ngFor="let project of (projects$ | async); let i=index" (closed)="onPanelClose()">
           <mat-expansion-panel-header *ngIf="project.status == 'In Progress'">
             <mat-panel-title fxLayoutAlign="start center">Job ID: {{project.jobId}}</mat-panel-title>
             <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
@@ -22,7 +22,7 @@
 
     <section *ngIf="!(isLoading$ | async)">
         <h3>Completed projects:</h3>
-        <mat-expansion-panel *ngFor="let project of projects$ | async; let i=index" (closed)="onPanelClose()">
+        <mat-expansion-panel *ngFor="let project of (projects$ | async); let i=index" (closed)="onPanelClose()">
             <mat-expansion-panel-header *ngIf="project.status == 'Complete'">
               <mat-panel-title fxLayoutAlign="start center">Job ID: {{ project.jobId}}</mat-panel-title>
               <mat-panel-description fxLayoutAlign="center center">Customer Name: {{project.customerName}}</mat-panel-description>
