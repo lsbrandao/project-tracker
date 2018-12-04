@@ -32,5 +32,6 @@
       <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
     </form>
   </section>
-    <img src="{{ '../assets/img/bg.jpg' }}">
+  <img fxHide.gt-md src="{{ '../assets/img/bg.jpg' }}">
+  <img fxHide.lt-lg fxFlexFill src="{{ '../assets/img/bg.jpg' }}">
 </div>
