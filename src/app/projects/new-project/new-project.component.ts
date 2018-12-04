@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProjectsService } from '../projects.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+
+import * as fromProject from '../projects.reducer';
+import { AddProject } from '../projects.actions';
 
 @Component({
   selector: 'app-new-project',
@@ -37,14 +41,14 @@ export class NewProjectComponent implements OnInit {
 ];
 
   constructor(private formBuilder: FormBuilder,
-              private projectsService: ProjectsService,
-              private router: Router) { }
+              private router: Router,
+              private store: Store<fromProject.State>) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
-    this.projectsService.addProject({
+    this.store.dispatch(new AddProject({
       customerName: this.newProjectForm.value.customerName,
       jobId: this.newProjectForm.value.jobId,
       paperFile: this.newProjectForm.value.paperFile,
@@ -59,7 +63,7 @@ export class NewProjectComponent implements OnInit {
         comment: 'Received',
         date: this.newProjectForm.value.dateReceived
       }]
-    });
+    }));
     this.newProjectForm.reset({dateReceived: new Date});
     this.router.navigate(['/projects/projects-list']);
   }

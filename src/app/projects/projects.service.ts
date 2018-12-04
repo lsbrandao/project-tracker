@@ -53,7 +53,7 @@ export class ProjectsService {
     }
 
     addProject(project: Project) {
-        this.db.collection('projects').add(project);
+        return this.db.collection('projects').add(project);
     }
 
     deleteProject(selectedId: string) {

@@ -18,6 +18,9 @@ import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.shared';
 import { AuthModule } from './auth/auth.module';
 import { reducers } from './app.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { reducers } from './app.reducer';
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AuthModule,
-    StoreModule.forRoot(reducers)
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+    }),
   ],
   providers: [
     AuthService,

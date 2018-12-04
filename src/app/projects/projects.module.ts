@@ -12,6 +12,8 @@ import { SharedModule } from '../shared/shared.module';
 import { ProjectsRoutingModule } from './projects-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { projectsReducer } from './projects.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { ProjectsEffects } from './projects.effects';
 
 @NgModule({
     declarations: [
@@ -27,9 +29,10 @@ import { projectsReducer } from './projects.reducer';
         SharedModule,
         FormsModule,
         ProjectsRoutingModule,
-        StoreModule.forFeature('projects', projectsReducer)
-
+        StoreModule.forFeature('projects', projectsReducer),
+        EffectsModule.forFeature([ProjectsEffects])
     ],
+    providers: [ProjectsEffects],
     entryComponents: [EditProjectComponent]
 })
 export class ProjectsModule {}
